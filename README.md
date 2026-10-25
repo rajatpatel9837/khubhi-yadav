@@ -121,3 +121,4 @@ You can also click **"Personalize"** in the top navigation bar at any time to ed
 3. Build command: `npm run build`
 4. Output directory: `dist`
 5. Deploy! Share the private link with Khubi.
+# khubhi-yadav
