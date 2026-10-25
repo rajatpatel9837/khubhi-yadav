@@ -5,7 +5,7 @@ const YOUTUBE_VIDEO_ID = 'oafxkMv4xnc';
 
 declare global {
   interface Window {
-    YT: typeof YT;
+    YT: any;
     onYouTubeIframeAPIReady: () => void;
   }
 }
@@ -15,7 +15,7 @@ export const AudioPlayer: React.FC = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [volume, setVolume] = useState(85);
   const [showUnmuteHint, setShowUnmuteHint] = useState(true);
-  const playerRef = useRef<YT.Player | null>(null);
+  const playerRef = useRef<any>(null);
   const iframeContainerRef = useRef<HTMLDivElement>(null);
   const playerReadyRef = useRef(false);
   const unmuteListenerRef = useRef<(() => void) | null>(null);
@@ -58,7 +58,7 @@ export const AudioPlayer: React.FC = () => {
         mute: 1, // Start muted for autoplay to work
       },
       events: {
-        onReady: (event) => {
+        onReady: (event: any) => {
           playerReadyRef.current = true;
           event.target.mute();
           event.target.setVolume(85);
@@ -68,7 +68,7 @@ export const AudioPlayer: React.FC = () => {
           // Setup unmute on first interaction
           setupUnmuteOnInteraction();
         },
-        onStateChange: (event) => {
+        onStateChange: (event: any) => {
           if (event.data === window.YT.PlayerState.PLAYING) {
             setIsPlaying(true);
           } else if (
