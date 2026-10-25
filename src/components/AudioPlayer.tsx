@@ -1,146 +1,224 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Volume2, VolumeX, Music } from 'lucide-react';
 
+const YOUTUBE_VIDEO_ID = 'oafxkMv4xnc';
+
+declare global {
+  interface Window {
+    YT: typeof YT;
+    onYouTubeIframeAPIReady: () => void;
+  }
+}
+
 export const AudioPlayer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.4);
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const gainNodeRef = useRef<GainNode | null>(null);
-  const intervalRef = useRef<number | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [volume, setVolume] = useState(85);
+  const [showUnmuteHint, setShowUnmuteHint] = useState(true);
+  const playerRef = useRef<YT.Player | null>(null);
+  const iframeContainerRef = useRef<HTMLDivElement>(null);
+  const playerReadyRef = useRef(false);
+  const unmuteListenerRef = useRef<(() => void) | null>(null);
 
-  // Soft romantic chord progression in D Major / B Minor pentatonic (warm, peaceful, ethereal)
-  const chordFrequencies = [
-    [146.83, 220.00, 277.18, 369.99], // Dmaj7 (D3, A3, C#4, F#4)
-    [123.47, 185.00, 246.94, 293.66], // Bm7 (B2, F#3, B3, D4)
-    [98.00, 146.83, 196.00, 246.94],  // Gmaj7 (G2, D3, G3, B3)
-    [110.00, 164.81, 220.00, 277.18], // A sus (A2, E3, A3, C#4)
-  ];
+  // Unmute on first user interaction anywhere on page
+  const setupUnmuteOnInteraction = () => {
+    const unmute = () => {
+      if (playerRef.current && playerReadyRef.current) {
+        playerRef.current.unMute();
+        playerRef.current.setVolume(85);
+        setIsMuted(false);
+        setShowUnmuteHint(false);
+      }
+      // Remove listeners after first interaction
+      document.removeEventListener('click', unmute);
+      document.removeEventListener('touchstart', unmute);
+      document.removeEventListener('keydown', unmute);
+      document.removeEventListener('scroll', unmute);
+    };
+    unmuteListenerRef.current = unmute;
+    document.addEventListener('click', unmute);
+    document.addEventListener('touchstart', unmute);
+    document.addEventListener('keydown', unmute);
+    document.addEventListener('scroll', unmute);
+  };
 
-  const playChord = (ctx: AudioContext, frequencies: number[], masterGain: GainNode) => {
-    frequencies.forEach((freq, idx) => {
-      const osc = ctx.createOscillator();
-      const noteGain = ctx.createGain();
-      
-      // Warm sine + subtle triangle overtone
-      osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+  const initPlayer = () => {
+    if (!iframeContainerRef.current) return;
 
-      // Soft attack & gentle release
-      const now = ctx.currentTime;
-      noteGain.gain.setValueAtTime(0.001, now);
-      noteGain.gain.linearRampToValueAtTime(0.06 / frequencies.length, now + 1.2);
-      noteGain.gain.exponentialRampToValueAtTime(0.0001, now + 5.5);
-
-      osc.connect(noteGain);
-      noteGain.connect(masterGain);
-
-      osc.start(now);
-      osc.stop(now + 6.0);
+    playerRef.current = new window.YT.Player(iframeContainerRef.current, {
+      videoId: YOUTUBE_VIDEO_ID,
+      playerVars: {
+        autoplay: 1,
+        loop: 1,
+        playlist: YOUTUBE_VIDEO_ID,
+        controls: 0,
+        modestbranding: 1,
+        rel: 0,
+        iv_load_policy: 3,
+        mute: 1, // Start muted for autoplay to work
+      },
+      events: {
+        onReady: (event) => {
+          playerReadyRef.current = true;
+          event.target.mute();
+          event.target.setVolume(85);
+          event.target.playVideo();
+          setIsPlaying(true);
+          setIsMuted(true);
+          // Setup unmute on first interaction
+          setupUnmuteOnInteraction();
+        },
+        onStateChange: (event) => {
+          if (event.data === window.YT.PlayerState.PLAYING) {
+            setIsPlaying(true);
+          } else if (
+            event.data === window.YT.PlayerState.PAUSED ||
+            event.data === window.YT.PlayerState.ENDED
+          ) {
+            setIsPlaying(false);
+          }
+        },
+      },
     });
   };
 
-  const startAmbientMusic = () => {
-    try {
-      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      const ctx = new AudioCtx();
-      const masterGain = ctx.createGain();
-      masterGain.gain.setValueAtTime(volume, ctx.currentTime);
-      masterGain.connect(ctx.destination);
-
-      audioCtxRef.current = ctx;
-      gainNodeRef.current = masterGain;
-
-      let chordIndex = 0;
-      playChord(ctx, chordFrequencies[chordIndex], masterGain);
-
-      intervalRef.current = window.setInterval(() => {
-        chordIndex = (chordIndex + 1) % chordFrequencies.length;
-        if (ctx.state === 'running') {
-          playChord(ctx, chordFrequencies[chordIndex], masterGain);
-        }
-      }, 5000);
-
-      setIsPlaying(true);
-    } catch {
-      console.warn('Web Audio API not supported or user blocked audio');
-    }
-  };
-
-  const stopAmbientMusic = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-    if (audioCtxRef.current && audioCtxRef.current.state !== 'closed') {
-      audioCtxRef.current.close();
-    }
-    audioCtxRef.current = null;
-    gainNodeRef.current = null;
-    setIsPlaying(false);
-  };
-
-  const togglePlay = () => {
-    if (isPlaying) {
-      stopAmbientMusic();
-    } else {
-      startAmbientMusic();
-    }
-  };
-
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVol = parseFloat(e.target.value);
-    setVolume(newVol);
-    if (gainNodeRef.current && audioCtxRef.current) {
-      gainNodeRef.current.gain.setValueAtTime(newVol, audioCtxRef.current.currentTime);
-    }
-  };
-
+  // Load YouTube IFrame API and auto-init player
   useEffect(() => {
+    const loadAndInit = () => {
+      if (window.YT && window.YT.Player) {
+        initPlayer();
+        return;
+      }
+      window.onYouTubeIframeAPIReady = () => {
+        initPlayer();
+      };
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    };
+
+    // Small delay so DOM is ready
+    const timer = setTimeout(loadAndInit, 800);
+
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      if (audioCtxRef.current && audioCtxRef.current.state !== 'closed') {
-        audioCtxRef.current.close();
+      clearTimeout(timer);
+      // Cleanup interaction listeners
+      if (unmuteListenerRef.current) {
+        document.removeEventListener('click', unmuteListenerRef.current);
+        document.removeEventListener('touchstart', unmuteListenerRef.current);
+        document.removeEventListener('keydown', unmuteListenerRef.current);
+        document.removeEventListener('scroll', unmuteListenerRef.current);
+      }
+      if (playerRef.current) {
+        try { playerRef.current.destroy(); } catch {}
+        playerRef.current = null;
       }
     };
   }, []);
 
-  return (
-    <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-midnight-light/70 border border-champagne/20 backdrop-blur-md text-xs text-ivory/80 shadow-lg">
-      <button
-        onClick={togglePlay}
-        aria-label={isPlaying ? "Pause ambient melody" : "Play ambient melody"}
-        className="flex items-center gap-1.5 hover:text-champagne transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-champagne rounded"
-        title={isPlaying ? "Mute ambient music" : "Play gentle ambient soundtrack"}
-      >
-        {isPlaying ? (
-          <>
-            <Volume2 className="w-4 h-4 text-rose-dusty animate-pulse" />
-            <span className="hidden sm:inline font-sans text-[11px] tracking-wide text-champagne">Playing Melody</span>
-          </>
-        ) : (
-          <>
-            <VolumeX className="w-4 h-4 text-ivory/50" />
-            <span className="hidden sm:inline font-sans text-[11px] tracking-wide">Sound Muted</span>
-          </>
-        )}
-      </button>
+  const togglePlay = () => {
+    if (!playerRef.current || !playerReadyRef.current) return;
+    const state = playerRef.current.getPlayerState();
+    if (state === window.YT.PlayerState.PLAYING) {
+      playerRef.current.pauseVideo();
+      setIsPlaying(false);
+    } else {
+      playerRef.current.playVideo();
+      setIsPlaying(true);
+    }
+  };
 
-      {isPlaying && (
-        <div className="hidden md:flex items-center gap-1.5 pl-2 border-l border-white/10">
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.05"
-            value={volume}
-            onChange={handleVolumeChange}
-            aria-label="Soundtrack Volume"
-            className="w-16 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-champagne"
-          />
-        </div>
+  const handleUnmute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (playerRef.current && playerReadyRef.current) {
+      playerRef.current.unMute();
+      playerRef.current.setVolume(85);
+      setIsMuted(false);
+      setShowUnmuteHint(false);
+      // Remove global listeners since we're handling it here
+      if (unmuteListenerRef.current) {
+        document.removeEventListener('click', unmuteListenerRef.current);
+        document.removeEventListener('touchstart', unmuteListenerRef.current);
+        document.removeEventListener('keydown', unmuteListenerRef.current);
+        document.removeEventListener('scroll', unmuteListenerRef.current);
+      }
+    }
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVol = parseInt(e.target.value);
+    setVolume(newVol);
+    if (playerRef.current) {
+      playerRef.current.setVolume(newVol);
+      if (newVol === 0) {
+        playerRef.current.mute();
+        setIsMuted(true);
+      } else if (isMuted) {
+        playerRef.current.unMute();
+        setIsMuted(false);
+        setShowUnmuteHint(false);
+      }
+    }
+  };
+
+  return (
+    <>
+      {/* Hidden YouTube iframe */}
+      <div style={{ position: 'fixed', bottom: '-9999px', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden', pointerEvents: 'none' }}>
+        <div ref={iframeContainerRef} />
+      </div>
+
+      {/* Unmute hint — shown until first interaction */}
+      {showUnmuteHint && isPlaying && (
+        <button
+          onClick={handleUnmute}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-champagne/90 text-midnight text-[11px] font-sans font-semibold tracking-wide shadow-lg animate-pulse hover:animate-none hover:bg-champagne transition-all"
+          title="Click to unmute Bairan"
+        >
+          <VolumeX className="w-3.5 h-3.5" />
+          <span>Tap to unmute ♪</span>
+        </button>
       )}
 
-      <Music className={`w-3 h-3 text-champagne/60 ${isPlaying ? 'animate-bounce' : 'opacity-40'}`} />
-    </div>
+      {/* Main Player UI */}
+      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-midnight-light/70 border border-champagne/20 backdrop-blur-md text-xs text-ivory/80 shadow-lg">
+        <button
+          onClick={togglePlay}
+          aria-label={isPlaying ? 'Pause Bairan' : 'Play Bairan'}
+          className="flex items-center gap-1.5 hover:text-champagne transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-champagne rounded"
+        >
+          {isPlaying ? (
+            <>
+              <Volume2 className={`w-4 h-4 ${isMuted ? 'text-ivory/50' : 'text-rose-dusty animate-pulse'}`} />
+              <span className="hidden sm:inline font-sans text-[11px] tracking-wide text-champagne">
+                Bairan {isMuted ? '(muted)' : '♪'}
+              </span>
+            </>
+          ) : (
+            <>
+              <VolumeX className="w-4 h-4 text-ivory/50" />
+              <span className="hidden sm:inline font-sans text-[11px] tracking-wide">Play Bairan</span>
+            </>
+          )}
+        </button>
+
+        {isPlaying && !isMuted && (
+          <div className="hidden md:flex items-center gap-1.5 pl-2 border-l border-white/10">
+            <input
+              type="range"
+              min="0"
+              max="100"
+              step="5"
+              value={volume}
+              onChange={handleVolumeChange}
+              aria-label="Song Volume"
+              className="w-16 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-champagne"
+            />
+          </div>
+        )}
+
+        <Music className={`w-3 h-3 text-champagne/60 ${isPlaying && !isMuted ? 'animate-bounce' : 'opacity-40'}`} />
+      </div>
+    </>
   );
 };

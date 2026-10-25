@@ -3,68 +3,57 @@ import { MemoryItem } from '../types';
 export const memoryCollection: MemoryItem[] = [
   {
     id: "frame-1",
-    title: "Quiet Twilight & Distant Skies",
-    caption: "The subtle amber dusk that reminds me of how peaceful an honest conversation can feel.",
-    image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=1200&q=80",
-    placeholderAlt: "Warm dusk sunlight filtering through tree leaves",
+    title: "Pehli Nazar",
+    caption: "Yeh aankhein, yeh muskaan — ek baar dekha toh dil kahin kho gaya.",
+    image: "/memories/photo5.jpg",
+    placeholderAlt: "Cute selfie with peace sign",
     aspectRatio: "aspect-[4/5]",
     focalPoint: "center",
-    date: "An evening thought",
-    locationTag: "Atmospheric Frame"
+    date: "Woh pyara lamha",
+    locationTag: "Dil Ki Tasveer"
   },
   {
     id: "frame-2",
-    title: "Words Waiting on Paper",
-    caption: "Some thoughts take time before they find the courage to be written down.",
-    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80",
-    placeholderAlt: "Open journal with ink pen on rustic wood",
-    aspectRatio: "aspect-[3/4]",
+    title: "Bachpan Ki Rani",
+    caption: "Itni choti si thi, par uss waqt bhi duniya ki sabse khoobsurat insaan thi.",
+    image: "/memories/photo1.jpg",
+    placeholderAlt: "Baby girl in blue dress 2008",
+    aspectRatio: "aspect-[4/5]",
     focalPoint: "center",
-    date: "Late night in Bhagalpur",
-    locationTag: "Reflections"
+    date: "August 2008",
+    locationTag: "Sunehri Yaadein"
   },
   {
     id: "frame-3",
-    title: "City Lights & Quiet Roads",
-    caption: "Miles away in Gurgaon, under the same wide stretch of evening stars.",
-    image: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80",
-    placeholderAlt: "Cinematic city lights reflecting in twilight mist",
-    aspectRatio: "aspect-[16/10]",
+    title: "Laal Rang Tera",
+    caption: "Jab tum laal pehanti ho, toh lagta hai duniya ka sabse khoobsurat rang tumhara hai.",
+    image: "/memories/photo2.jpg",
+    placeholderAlt: "Girl in orange red kurti",
+    aspectRatio: "aspect-[3/4]",
     focalPoint: "center",
-    date: "A glimpse across miles",
-    locationTag: "City Horizons"
+    date: "Ek khoobsurat din",
+    locationTag: "Rang Tera"
   },
   {
     id: "frame-4",
-    title: "A Warm Cup & Still Moments",
-    caption: "Taking a breath between studies and routines, wondering how your day went.",
-    image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80",
-    placeholderAlt: "Warm coffee cup steaming in quiet morning window",
-    aspectRatio: "aspect-[4/5]",
+    title: "Peeli Dhoop",
+    caption: "Is peeli dhoop mein tumhari muskaan aur bhi chamakti hai — bilkul suraj jaisi.",
+    image: "/memories/photo4.jpg",
+    placeholderAlt: "Girl in yellow gharara smiling",
+    aspectRatio: "aspect-[3/4]",
     focalPoint: "center",
-    date: "Early morning silence",
-    locationTag: "Simple Moments"
+    date: "Khushiyon ka din",
+    locationTag: "Meri Dhoop"
   },
   {
     id: "frame-5",
-    title: "Tracks Across The Country",
-    caption: "The steel rails and highway ribbons connecting Bihar to Haryana.",
-    image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1200&q=80",
-    placeholderAlt: "Train tracks stretching toward the distant horizon at sunset",
-    aspectRatio: "aspect-[3/2]",
+    title: "Apni Si Duniya",
+    caption: "Jab tum yun baith jaati ho khamoshi mein, toh lagta hai waqt ruk jaata hai.",
+    image: "/memories/photo3.jpg",
+    placeholderAlt: "Girl in school uniform sitting on rock",
+    aspectRatio: "aspect-[3/4]",
     focalPoint: "center",
-    date: "Route 1240 km",
-    locationTag: "The Journey"
-  },
-  {
-    id: "frame-6",
-    title: "The Unwritten Tomorrow",
-    caption: "Every meaningful story begins not with certainty, but with an open heart.",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
-    placeholderAlt: "Golden sunset horizon over calm waters",
-    aspectRatio: "aspect-[4/5]",
-    focalPoint: "center",
-    date: "A quiet hope",
-    locationTag: "Beginning"
+    date: "Sukoon ka woh pal",
+    locationTag: "Meri Jaan"
   }
 ];
