@@ -42,17 +42,17 @@ export const RelationshipProposal: React.FC<RelationshipProposalProps> = ({
   };
 
   return (
-    <section id="proposal" className="relative py-28 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    <section id="proposal" className="relative py-16 sm:py-36 px-3 sm:px-6 lg:px-8 max-w-5xl mx-auto">
       {/* Ambient soft rose & champagne backdrop light */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-        <div className="w-[500px] h-[500px] rounded-full bg-rose-dusty/15 blur-[140px]" />
-        <div className="w-[350px] h-[350px] rounded-full bg-champagne/10 blur-[100px]" />
+        <div className="w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full bg-rose-dusty/15 blur-[120px]" />
+        <div className="w-[250px] h-[250px] sm:w-[350px] sm:h-[350px] rounded-full bg-champagne/10 blur-[90px]" />
       </div>
 
-      <div className="relative z-10 luxury-card rounded-3xl p-8 sm:p-14 md:p-20 text-center border border-rose-dusty/30 shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
+      <div className="relative z-10 luxury-card rounded-2xl sm:rounded-3xl p-5 sm:p-14 md:p-20 text-center border border-rose-dusty/30 shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
         {/* Animated Heart Outline Motif */}
-        <div className="flex justify-center mb-8">
-          <div className="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+        <div className="flex justify-center mb-6 sm:mb-8">
+          <div className="relative w-14 h-14 sm:w-20 sm:h-20 flex items-center justify-center">
             <svg
               viewBox="0 0 100 100"
               className="w-full h-full text-rose-dusty overflow-visible"
@@ -71,7 +71,7 @@ export const RelationshipProposal: React.FC<RelationshipProposalProps> = ({
                 transition={{ duration: 1.8, ease: "easeInOut" }}
               />
             </svg>
-            <Sparkles className="w-5 h-5 text-champagne absolute animate-pulse" />
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-champagne absolute animate-pulse" />
           </div>
         </div>
 
@@ -80,7 +80,7 @@ export const RelationshipProposal: React.FC<RelationshipProposalProps> = ({
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="font-serif italic text-xl sm:text-2xl text-champagne-light mb-3"
+          className="font-serif italic text-lg sm:text-2xl text-champagne-light mb-2 sm:mb-3"
         >
           {proposal.introPrompt}
         </motion.p>
@@ -91,7 +91,7 @@ export const RelationshipProposal: React.FC<RelationshipProposalProps> = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="font-serif text-3xl sm:text-5xl md:text-6xl text-gold-gradient font-light mb-6 tracking-wide"
+          className="font-serif text-2xl sm:text-5xl md:text-6xl text-gold-gradient font-light mb-4 sm:mb-6 tracking-wide"
         >
           “{proposal.confession}”
         </motion.h3>
@@ -102,7 +102,7 @@ export const RelationshipProposal: React.FC<RelationshipProposalProps> = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="font-sans text-sm sm:text-base md:text-lg text-ivory/80 max-w-2xl mx-auto leading-relaxed mb-10 font-light"
+          className="font-sans text-xs sm:text-base md:text-lg text-ivory/80 max-w-2xl mx-auto leading-relaxed mb-6 sm:mb-10 font-light"
         >
           {proposal.leadMessage}
         </motion.p>
@@ -113,12 +113,12 @@ export const RelationshipProposal: React.FC<RelationshipProposalProps> = ({
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="py-6 px-8 rounded-2xl bg-midnight/80 border border-champagne/30 max-w-xl mx-auto mb-12 shadow-inner"
+          className="py-4 px-4 sm:py-6 sm:px-8 rounded-xl sm:rounded-2xl bg-midnight/80 border border-champagne/30 max-w-xl mx-auto mb-8 sm:mb-12 shadow-inner"
         >
-          <span className="text-[11px] uppercase tracking-widest text-rose-dusty font-mono block mb-1">
+          <span className="text-[10px] sm:text-[11px] uppercase tracking-widest text-rose-dusty font-mono block mb-1">
             An Honest Invitation
           </span>
-          <h2 className="font-serif text-2xl sm:text-4xl text-ivory font-normal tracking-wide">
+          <h2 className="font-serif text-xl sm:text-3xl md:text-4xl text-ivory font-normal tracking-wide">
             {proposal.question}
           </h2>
         </motion.div>

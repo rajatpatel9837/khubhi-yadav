@@ -49,36 +49,36 @@ export const PoetryCollection: React.FC<PoetryCollectionProps> = ({ poems }) => 
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="relative rounded-3xl p-8 sm:p-14 md:p-16 letter-paper-texture text-charcoal shadow-2xl border border-champagne/40 overflow-hidden"
+            className="relative rounded-2xl sm:rounded-3xl p-5 sm:p-14 md:p-16 letter-paper-texture text-charcoal shadow-2xl border border-champagne/40 overflow-hidden"
           >
             {/* Subtle corner flourish or watermark */}
-            <div className="absolute top-6 right-8 text-rose-dusty/20 font-serif text-6xl select-none pointer-events-none italic">
+            <div className="absolute top-3 right-4 sm:top-6 sm:right-8 text-rose-dusty/20 font-serif text-3xl sm:text-6xl select-none pointer-events-none italic">
               ❦
             </div>
 
             {/* Header of Literary Page */}
-            <div className="flex items-center justify-between border-b border-charcoal/15 pb-5 mb-8">
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-xs uppercase tracking-widest text-charcoal/60">
+            <div className="flex items-center justify-between border-b border-charcoal/15 pb-3 sm:pb-5 mb-5 sm:mb-8">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-charcoal/60">
                   {currentPoem.chapter}
                 </span>
                 <span className="text-charcoal/30">•</span>
-                <span className="font-sans text-xs uppercase tracking-wider text-rose-deep font-medium">
+                <span className="font-sans text-[10px] sm:text-xs uppercase tracking-wider text-rose-deep font-medium">
                   {currentPoem.theme}
                 </span>
               </div>
-              <div className="text-xs font-mono text-charcoal/50">
+              <div className="text-[10px] sm:text-xs font-mono text-charcoal/50">
                 Page {currentIndex + 1} of {poems.length}
               </div>
             </div>
 
             {/* Poem Title */}
-            <h3 className="font-serif text-2xl sm:text-3xl text-aubergine-dark mb-8 font-normal tracking-wide">
+            <h3 className="font-serif text-xl sm:text-3xl text-aubergine-dark mb-4 sm:mb-8 font-normal tracking-wide">
               {currentPoem.title}
             </h3>
 
             {/* Poem Couplets */}
-            <div className="space-y-4 my-8 font-serif text-xl sm:text-2xl md:text-3xl text-aubergine-dark/95 leading-relaxed tracking-wide">
+            <div className="space-y-3 sm:space-y-4 my-4 sm:my-8 font-serif text-lg sm:text-2xl md:text-3xl text-aubergine-dark/95 leading-relaxed tracking-wide">
               {currentPoem.lines.map((line, idx) => {
                 // Highlight Khubi or Rajat if present
                 const parts = line.split(/(Khubi|Rajat)/g);
@@ -107,9 +107,9 @@ export const PoetryCollection: React.FC<PoetryCollectionProps> = ({ poems }) => 
             </div>
 
             {/* Handwritten annotation by Rajat */}
-            <div className="mt-10 pt-6 border-t border-charcoal/10 flex items-center gap-3">
-              <Feather className="w-4 h-4 text-rose-deep shrink-0" />
-              <p className="font-handwriting text-xl sm:text-2xl text-aubergine-dark/80 tracking-wide">
+            <div className="mt-6 sm:mt-10 pt-4 sm:pt-6 border-t border-charcoal/10 flex items-center gap-2 sm:gap-3">
+              <Feather className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-rose-deep shrink-0" />
+              <p className="font-handwriting text-lg sm:text-2xl text-aubergine-dark/80 tracking-wide">
                 {currentPoem.annotation}
               </p>
             </div>
@@ -117,18 +117,18 @@ export const PoetryCollection: React.FC<PoetryCollectionProps> = ({ poems }) => 
         </AnimatePresence>
 
         {/* Gallery Navigation Controls */}
-        <div className="flex items-center justify-between mt-8 px-2">
+        <div className="flex items-center justify-between mt-6 sm:mt-8 px-1 sm:px-2 gap-2">
           <button
             onClick={handlePrev}
             aria-label="Previous poem"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-midnight-light border border-champagne/25 text-xs text-ivory hover:text-champagne hover:border-champagne/60 transition-all active:scale-95 shadow-md"
+            className="flex items-center gap-1.5 p-2 sm:px-5 sm:py-2.5 rounded-full bg-midnight-light border border-champagne/25 text-xs text-ivory hover:text-champagne hover:border-champagne/60 transition-all active:scale-95 shadow-md shrink-0"
           >
             <ChevronLeft className="w-4 h-4" />
             <span className="font-sans uppercase tracking-wider hidden sm:inline">Pichhla Alfaaz</span>
           </button>
 
           {/* Quick Pagination Dots */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             {poems.map((p, idx) => (
               <button
                 key={p.id}
@@ -136,18 +136,18 @@ export const PoetryCollection: React.FC<PoetryCollectionProps> = ({ poems }) => 
                 aria-label={`Go to poem ${idx + 1}`}
                 className={`transition-all rounded-full ${
                   currentIndex === idx
-                    ? 'w-7 h-2 bg-champagne'
-                    : 'w-2 h-2 bg-ivory/30 hover:bg-ivory/60'
+                    ? 'w-5 sm:w-7 h-1.5 sm:h-2 bg-champagne'
+                    : 'w-1.5 sm:w-2 h-1.5 sm:h-2 bg-ivory/30 hover:bg-ivory/60'
                 }`}
               />
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             <button
               onClick={handleReset}
               aria-label="Read poems again from beginning"
-              className="p-2.5 rounded-full bg-midnight-light border border-champagne/25 text-ivory/60 hover:text-champagne transition-all"
+              className="p-2 sm:p-2.5 rounded-full bg-midnight-light border border-champagne/25 text-ivory/60 hover:text-champagne transition-all"
               title="Pehla Alfaaz (Read Again)"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -156,7 +156,7 @@ export const PoetryCollection: React.FC<PoetryCollectionProps> = ({ poems }) => 
             <button
               onClick={handleNext}
               aria-label="Next poem"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-midnight-light border border-champagne/25 text-xs text-ivory hover:text-champagne hover:border-champagne/60 transition-all active:scale-95 shadow-md"
+              className="flex items-center gap-1.5 p-2 sm:px-5 sm:py-2.5 rounded-full bg-midnight-light border border-champagne/25 text-xs text-ivory hover:text-champagne hover:border-champagne/60 transition-all active:scale-95 shadow-md shrink-0"
             >
               <span className="font-sans uppercase tracking-wider hidden sm:inline">Agla Alfaaz</span>
               <ChevronRight className="w-4 h-4" />

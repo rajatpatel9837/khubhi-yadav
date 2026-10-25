@@ -66,7 +66,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
         <button
           onClick={onClose}
           aria-label="Close photo lightbox"
-          className="absolute top-6 right-6 z-50 p-3 rounded-full bg-midnight-light/80 border border-champagne/30 text-ivory hover:text-champagne hover:scale-105 active:scale-95 transition-all shadow-xl focus-visible:ring-2 focus-visible:ring-champagne"
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2 sm:p-3 rounded-full bg-midnight-light/90 border border-champagne/30 text-ivory hover:text-champagne hover:scale-105 active:scale-95 transition-all shadow-xl focus-visible:ring-2 focus-visible:ring-champagne"
         >
           <X className="w-5 h-5" />
         </button>
@@ -75,7 +75,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
         <button
           onClick={handlePrev}
           aria-label="Previous photo"
-          className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-midnight-light/80 border border-champagne/30 text-ivory hover:text-champagne hover:scale-105 active:scale-95 transition-all shadow-xl"
+          className="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 z-50 p-2 sm:p-3 rounded-full bg-midnight-light/90 border border-champagne/30 text-ivory hover:text-champagne hover:scale-105 active:scale-95 transition-all shadow-xl"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -84,7 +84,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
         <button
           onClick={handleNext}
           aria-label="Next photo"
-          className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-50 p-3 rounded-full bg-midnight-light/80 border border-champagne/30 text-ivory hover:text-champagne hover:scale-105 active:scale-95 transition-all shadow-xl"
+          className="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 z-50 p-2 sm:p-3 rounded-full bg-midnight-light/90 border border-champagne/30 text-ivory hover:text-champagne hover:scale-105 active:scale-95 transition-all shadow-xl"
         >
           <ChevronRight className="w-5 h-5" />
         </button>
@@ -96,9 +96,9 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="relative max-w-4xl max-h-[88vh] flex flex-col items-center justify-center"
+          className="relative max-w-4xl max-h-[90vh] flex flex-col items-center justify-center px-6 sm:px-0"
         >
-          <div className="relative rounded-2xl overflow-hidden border border-champagne/30 shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[65vh] w-auto">
+          <div className="relative rounded-2xl overflow-hidden border border-champagne/30 shadow-[0_25px_60px_rgba(0,0,0,0.8)] max-h-[55vh] sm:max-h-[65vh] w-auto">
             <img
               src={currentItem.image}
               alt={currentItem.title}
@@ -106,7 +106,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({
                 // Graceful fallback if external link fails
                 (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=1200&q=80";
               }}
-              className="max-h-[65vh] max-w-full w-auto object-contain"
+              className="max-h-[55vh] sm:max-h-[65vh] max-w-full w-auto object-contain"
             />
             {/* Fine grain overlay */}
             <div className="absolute inset-0 grain-overlay opacity-30 pointer-events-none" />

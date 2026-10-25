@@ -62,9 +62,9 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
           {/* Brand Monogram */}
           <button
             onClick={() => handleLinkClick('intro')}
-            className="flex items-center gap-2 group text-left focus-visible:ring-1 focus-visible:ring-champagne rounded p-1"
+            className="flex items-center gap-1.5 sm:gap-2 group text-left focus-visible:ring-1 focus-visible:ring-champagne rounded p-0.5 sm:p-1 shrink-0"
           >
-            <span className="font-serif text-lg sm:text-xl tracking-wider text-ivory group-hover:text-champagne transition-colors">
+            <span className="font-serif text-base sm:text-xl tracking-wider text-ivory group-hover:text-champagne transition-colors whitespace-nowrap">
               Khubi <span className="text-rose-dusty font-light">×</span> Rajat
             </span>
             <span className="hidden sm:inline-block text-[10px] uppercase tracking-widest text-champagne/70 border border-champagne/20 px-1.5 py-0.5 rounded-full font-sans">
@@ -86,13 +86,13 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
           </nav>
 
           {/* Right Action Icons */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             <AudioPlayer />
 
             {/* Customizer button */}
             <button
               onClick={onOpenCustomizer}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-aubergine-light/70 border border-rose-dusty/30 hover:border-champagne/50 hover:bg-aubergine text-xs text-rose-blush transition-all shadow-md focus-visible:ring-1 focus-visible:ring-champagne"
+              className="flex items-center gap-1.5 p-1.5 sm:px-3 sm:py-1.5 rounded-full bg-aubergine-light/70 border border-rose-dusty/30 hover:border-champagne/50 hover:bg-aubergine text-xs text-rose-blush transition-all shadow-md focus-visible:ring-1 focus-visible:ring-champagne"
               title="Personalize content, poems, and details"
               aria-label="Personalization Dashboard"
             >
@@ -103,10 +103,10 @@ export const NavigationHeader: React.FC<NavigationHeaderProps> = ({
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg bg-midnight-light/80 border border-champagne/20 text-ivory hover:text-champagne transition-colors"
+              className="lg:hidden p-1.5 sm:p-2 rounded-lg bg-midnight-light/80 border border-champagne/20 text-ivory hover:text-champagne transition-colors"
               aria-label="Toggle navigation menu"
             >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="w-4 h-4 sm:w-5 sm:h-5" /> : <Menu className="w-4 h-4 sm:w-5 sm:h-5" />}
             </button>
           </div>
         </div>

@@ -419,14 +419,14 @@ export const CustomizerModal: React.FC<CustomizerModalProps> = ({
         </div>
 
         {/* Footer Actions */}
-        <div className="px-6 py-4 border-t border-white/10 bg-midnight/90 flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
+        <div className="px-4 py-3 sm:px-6 sm:py-4 border-t border-white/10 bg-midnight/90 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 shrink-0">
+          <div className="flex items-center justify-between sm:justify-start gap-2">
             <button
               onClick={handleCopyJSON}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-ivory/80 font-mono transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-ivory/80 font-mono transition-colors"
             >
-              {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-              <span>{copied ? 'Copied Full JSON' : 'Export JSON'}</span>
+              {copied ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+              <span>{copied ? 'Copied' : 'Export JSON'}</span>
             </button>
 
             <button
@@ -436,23 +436,23 @@ export const CustomizerModal: React.FC<CustomizerModalProps> = ({
                   onClose();
                 }
               }}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white/5 hover:bg-rose-950/40 text-xs text-rose-blush/80 hover:text-rose-dusty transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-rose-950/40 text-xs text-rose-blush/80 hover:text-rose-dusty transition-colors"
             >
-              <RotateCcw className="w-4 h-4" />
-              <span>Reset Defaults</span>
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Reset</span>
             </button>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-end gap-2 sm:gap-3">
             <button
               onClick={onClose}
-              className="px-5 py-2 rounded-xl bg-transparent text-xs text-ivory/60 hover:text-ivory"
+              className="px-4 py-2 rounded-xl bg-transparent text-xs text-ivory/60 hover:text-ivory"
             >
               Cancel
             </button>
             <button
               onClick={handleSave}
-              className="px-6 py-2.5 rounded-xl bg-champagne hover:bg-champagne-light text-midnight text-xs font-semibold uppercase tracking-wider transition-all shadow-lg"
+              className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-champagne hover:bg-champagne-light text-midnight text-xs font-semibold uppercase tracking-wider transition-all shadow-lg text-center"
             >
               Apply Changes
             </button>

@@ -42,18 +42,18 @@ export const PersonalLetter: React.FC<PersonalLetterProps> = ({ config, onNext }
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="letter-paper-texture rounded-3xl p-8 sm:p-14 md:p-16 text-charcoal shadow-2xl border border-champagne/30 relative"
+        className="letter-paper-texture rounded-2xl sm:rounded-3xl p-5 sm:p-14 md:p-16 text-charcoal shadow-2xl border border-champagne/30 relative"
       >
         {/* Subtle decorative stamp / seal motif */}
-        <div className="absolute top-8 right-8 w-16 h-16 rounded-full border border-rose-dusty/40 flex items-center justify-center p-1 opacity-70 pointer-events-none select-none">
-          <div className="w-full h-full rounded-full border border-dashed border-rose-dusty/60 flex flex-col items-center justify-center text-[8px] uppercase tracking-tighter font-mono text-rose-deep">
+        <div className="absolute top-4 right-4 sm:top-8 sm:right-8 w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-rose-dusty/40 flex items-center justify-center p-1 opacity-70 pointer-events-none select-none">
+          <div className="w-full h-full rounded-full border border-dashed border-rose-dusty/60 flex flex-col items-center justify-center text-[7px] sm:text-[8px] uppercase tracking-tighter font-mono text-rose-deep">
             <span>IIIT • GGN</span>
             <span>2026</span>
           </div>
         </div>
 
         {/* Letter Paragraphs with refined reading typography */}
-        <div className="space-y-6 font-serif text-lg sm:text-xl md:text-2xl text-aubergine-dark/95 leading-relaxed tracking-wide max-w-2xl">
+        <div className="space-y-4 sm:space-y-6 font-serif text-base sm:text-xl md:text-2xl text-aubergine-dark/95 leading-relaxed tracking-wide max-w-2xl pr-4 sm:pr-0">
           {letter.paragraphs.map((para, index) => {
             // Emphasize the core line "Mujhe tum achhi lagti ho."
             const isHighlight = para.includes("Mujhe tum achhi lagti ho");
@@ -66,9 +66,9 @@ export const PersonalLetter: React.FC<PersonalLetterProps> = ({ config, onNext }
                 transition={{ duration: 0.6, delay: index * 0.05 }}
                 className={`${
                   isHighlight
-                    ? "font-serif italic text-2xl sm:text-3xl text-rose-deep font-semibold my-6 py-2 border-l-2 border-rose-dusty pl-4"
+                    ? "font-serif italic text-xl sm:text-3xl text-rose-deep font-semibold my-4 sm:my-6 py-1.5 sm:py-2 border-l-2 border-rose-dusty pl-3 sm:pl-4"
                     : index === 0
-                    ? "font-serif text-2xl text-aubergine font-medium"
+                    ? "font-serif text-xl sm:text-2xl text-aubergine font-medium"
                     : ""
                 }`}
               >
@@ -79,14 +79,14 @@ export const PersonalLetter: React.FC<PersonalLetterProps> = ({ config, onNext }
         </div>
 
         {/* Handwritten Signature */}
-        <div className="mt-12 pt-8 border-t border-charcoal/15 flex flex-col items-end">
-          <span className="text-xs font-sans uppercase tracking-widest text-charcoal/60">
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-charcoal/15 flex flex-col items-end">
+          <span className="text-[11px] sm:text-xs font-sans uppercase tracking-widest text-charcoal/60">
             With quiet sincerity,
           </span>
-          <span className="font-handwriting text-3xl sm:text-4xl text-rose-deep font-normal mt-1">
+          <span className="font-handwriting text-2xl sm:text-4xl text-rose-deep font-normal mt-0.5 sm:mt-1">
             {letter.signature}
           </span>
-          <span className="text-[11px] font-mono text-charcoal/50 mt-1">
+          <span className="text-[10px] sm:text-[11px] font-mono text-charcoal/50 mt-0.5">
             Bhagalpur, Bihar
           </span>
         </div>

@@ -12,7 +12,7 @@ export const FinalLetter: React.FC<FinalLetterProps> = ({ config, onReplay }) =>
   const { finalLetter } = config;
 
   return (
-    <section id="closing" className="py-24 sm:py-36 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
+    <section id="closing" className="py-16 sm:py-36 px-3 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
       {/* Chapter Title */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
@@ -30,7 +30,7 @@ export const FinalLetter: React.FC<FinalLetterProps> = ({ config, onReplay }) =>
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.1 }}
-        className="font-serif text-3xl sm:text-5xl md:text-6xl text-ivory tracking-tight font-light mb-12"
+        className="font-serif text-3xl sm:text-5xl md:text-6xl text-ivory tracking-tight font-light mb-8 sm:mb-12"
       >
         {finalLetter.title}
       </motion.h2>
@@ -41,20 +41,20 @@ export const FinalLetter: React.FC<FinalLetterProps> = ({ config, onReplay }) =>
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="letter-paper-texture rounded-3xl p-8 sm:p-14 md:p-16 text-charcoal shadow-2xl border border-champagne/40 max-w-2xl mx-auto text-left relative"
+        className="letter-paper-texture rounded-2xl sm:rounded-3xl p-5 sm:p-14 md:p-16 text-charcoal shadow-2xl border border-champagne/40 max-w-2xl mx-auto text-left relative"
       >
-        <div className="space-y-5 font-serif text-lg sm:text-xl md:text-2xl text-aubergine-dark/95 leading-relaxed tracking-wide">
+        <div className="space-y-4 sm:space-y-5 font-serif text-base sm:text-xl md:text-2xl text-aubergine-dark/95 leading-relaxed tracking-wide">
           {finalLetter.paragraphs.map((p, i) => (
             <p key={i}>{p}</p>
           ))}
         </div>
 
         {/* Signature */}
-        <div className="mt-10 pt-6 border-t border-charcoal/15 flex flex-col items-end">
-          <span className="font-sans text-xs uppercase tracking-widest text-charcoal/50">
+        <div className="mt-8 sm:mt-10 pt-5 sm:pt-6 border-t border-charcoal/15 flex flex-col items-end">
+          <span className="font-sans text-[11px] sm:text-xs uppercase tracking-widest text-charcoal/50">
             Always sincerely,
           </span>
-          <span className="font-handwriting text-3xl sm:text-4xl text-rose-deep font-normal mt-1">
+          <span className="font-handwriting text-2xl sm:text-4xl text-rose-deep font-normal mt-0.5 sm:mt-1">
             {finalLetter.signature}
           </span>
         </div>

@@ -172,38 +172,39 @@ export const AudioPlayer: React.FC = () => {
       {showUnmuteHint && isPlaying && (
         <button
           onClick={handleUnmute}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-champagne/90 text-midnight text-[11px] font-sans font-semibold tracking-wide shadow-lg animate-pulse hover:animate-none hover:bg-champagne transition-all"
+          className="flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-champagne text-midnight text-[10px] sm:text-[11px] font-sans font-semibold tracking-wide shadow-lg animate-pulse hover:animate-none hover:bg-champagne-light transition-all whitespace-nowrap"
           title="Click to unmute Bairan"
         >
-          <VolumeX className="w-3.5 h-3.5" />
-          <span>Tap to unmute ♪</span>
+          <VolumeX className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+          <span className="hidden xs:inline sm:inline">Tap to unmute ♪</span>
+          <span className="xs:hidden sm:hidden">Unmute ♪</span>
         </button>
       )}
 
       {/* Main Player UI */}
-      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-midnight-light/70 border border-champagne/20 backdrop-blur-md text-xs text-ivory/80 shadow-lg">
+      <div className="flex items-center gap-1.5 sm:gap-2 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full bg-midnight-light/80 border border-champagne/20 backdrop-blur-md text-xs text-ivory/80 shadow-lg">
         <button
           onClick={togglePlay}
           aria-label={isPlaying ? 'Pause Bairan' : 'Play Bairan'}
-          className="flex items-center gap-1.5 hover:text-champagne transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-champagne rounded"
+          className="flex items-center gap-1 sm:gap-1.5 hover:text-champagne transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-champagne rounded"
         >
           {isPlaying ? (
             <>
-              <Volume2 className={`w-4 h-4 ${isMuted ? 'text-ivory/50' : 'text-rose-dusty animate-pulse'}`} />
-              <span className="hidden sm:inline font-sans text-[11px] tracking-wide text-champagne">
+              <Volume2 className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isMuted ? 'text-ivory/50' : 'text-rose-dusty animate-pulse'}`} />
+              <span className="hidden md:inline font-sans text-[11px] tracking-wide text-champagne">
                 Bairan {isMuted ? '(muted)' : '♪'}
               </span>
             </>
           ) : (
             <>
-              <VolumeX className="w-4 h-4 text-ivory/50" />
-              <span className="hidden sm:inline font-sans text-[11px] tracking-wide">Play Bairan</span>
+              <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-ivory/50" />
+              <span className="hidden md:inline font-sans text-[11px] tracking-wide">Play Bairan</span>
             </>
           )}
         </button>
 
         {isPlaying && !isMuted && (
-          <div className="hidden md:flex items-center gap-1.5 pl-2 border-l border-white/10">
+          <div className="hidden lg:flex items-center gap-1.5 pl-2 border-l border-white/10">
             <input
               type="range"
               min="0"

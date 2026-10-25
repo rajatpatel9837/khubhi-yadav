@@ -66,12 +66,12 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ config, isOpen, 
             </motion.div>
 
             {/* Two Names Reveal */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 mb-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-6 mb-4 sm:mb-6">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-3xl sm:text-4xl md:text-5xl text-ivory tracking-wide font-normal"
+                className="font-serif text-2xl sm:text-4xl md:text-5xl text-ivory tracking-wide font-normal text-center"
               >
                 {config.names.herFull}
               </motion.h2>
@@ -80,7 +80,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ config, isOpen, 
                 initial={{ opacity: 0, scale: 0.7 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.9 }}
-                className="font-serif italic text-2xl sm:text-3xl text-rose-dusty font-light"
+                className="font-serif italic text-xl sm:text-3xl text-rose-dusty font-light"
               >
                 ×
               </motion.span>
@@ -89,7 +89,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ config, isOpen, 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 1.1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-serif text-3xl sm:text-4xl md:text-5xl text-ivory tracking-wide font-normal"
+                className="font-serif text-2xl sm:text-4xl md:text-5xl text-ivory tracking-wide font-normal text-center"
               >
                 {config.names.himFull}
               </motion.h2>
@@ -100,9 +100,9 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ config, isOpen, 
               initial={{ opacity: 0, clipPath: "inset(100% 0% 0% 0%)" }}
               animate={{ opacity: 1, clipPath: "inset(0% 0% 0% 0%)" }}
               transition={{ duration: 1.1, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-8"
+              className="mb-6 sm:mb-8"
             >
-              <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl leading-tight sm:leading-none tracking-tight text-gold-gradient font-light uppercase">
+              <h1 className="font-serif text-3xl sm:text-5xl md:text-7xl leading-tight sm:leading-none tracking-tight text-gold-gradient font-light uppercase">
                 MILES APART,<br />
                 <span className="italic tracking-normal text-rose-blush">HEART TO HEART</span>
               </h1>

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import gsap from 'gsap';
 import { SiteConfig } from '../types';
 import { MapPin, Navigation, Compass } from 'lucide-react';
 
@@ -9,11 +10,25 @@ interface CityJourneyProps {
 
 export const CityJourney: React.FC<CityJourneyProps> = ({ config }) => {
   const { him, her, approxDistanceKm, distanceNote } = config.locations;
+  const compassRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!compassRef.current) return;
+    const tween = gsap.to(compassRef.current, {
+      rotate: 360,
+      duration: 20,
+      repeat: -1,
+      ease: 'none',
+    });
+    return () => {
+      tween.kill();
+    };
+  }, []);
 
   return (
-    <section id="cities" className="relative py-24 sm:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="cities" className="relative py-16 sm:py-32 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Editorial Header */}
-      <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+      <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-20">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -21,7 +36,9 @@ export const CityJourney: React.FC<CityJourneyProps> = ({ config }) => {
           transition={{ duration: 0.7 }}
           className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-champagne/20 bg-midnight-light/60 text-[10px] sm:text-xs tracking-[0.25em] uppercase text-champagne mb-4"
         >
-          <Compass className="w-3.5 h-3.5 text-rose-dusty" />
+          <div ref={compassRef} className="inline-flex">
+            <Compass className="w-3.5 h-3.5 text-rose-dusty" />
+          </div>
           <span>Geography & Connection</span>
         </motion.div>
 
@@ -40,14 +57,14 @@ export const CityJourney: React.FC<CityJourneyProps> = ({ config }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="font-sans text-sm sm:text-base text-ivory/60 mt-4 max-w-xl mx-auto"
+          className="font-sans text-xs sm:text-base text-ivory/60 mt-3 sm:mt-4 max-w-xl mx-auto leading-relaxed"
         >
           {config.supportingTagline}
         </motion.p>
       </div>
 
       {/* Main Stylized Map Canvas / Route Display */}
-      <div className="relative luxury-card rounded-3xl p-6 sm:p-10 md:p-14 overflow-hidden border border-champagne/20">
+      <div className="relative luxury-card rounded-2xl sm:rounded-3xl p-4 sm:p-10 md:p-14 overflow-hidden border border-champagne/20">
         {/* Subtle background grid lines for cartographic elegance */}
         <div className="absolute inset-0 bg-[radial-gradient(#d0b58a10_1px,transparent_1px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
 
@@ -180,44 +197,44 @@ export const CityJourney: React.FC<CityJourneyProps> = ({ config }) => {
         </div>
 
         {/* Mobile Vertical Journey Illustration */}
-        <div className="md:hidden flex flex-col gap-8 py-6 relative">
-          <div className="absolute left-6 top-10 bottom-10 w-[2px] bg-gradient-to-b from-rose-dusty via-champagne to-rose-blush" />
+        <div className="md:hidden flex flex-col gap-6 py-4 relative">
+          <div className="absolute left-3.5 top-8 bottom-8 w-[2px] bg-gradient-to-b from-rose-dusty via-champagne to-rose-blush" />
 
           {/* Bhagalpur Node */}
-          <div className="relative flex items-start gap-5 pl-14">
-            <div className="absolute left-4 top-1.5 -translate-x-1/2 w-5 h-5 rounded-full bg-aubergine border-2 border-rose-dusty flex items-center justify-center shadow-[0_0_12px_rgba(197,142,152,0.8)]">
-              <div className="w-2 h-2 rounded-full bg-ivory" />
+          <div className="relative flex items-start gap-3 pl-8">
+            <div className="absolute left-3.5 top-1.5 -translate-x-1/2 w-4 h-4 rounded-full bg-aubergine border-2 border-rose-dusty flex items-center justify-center shadow-[0_0_12px_rgba(197,142,152,0.8)]">
+              <div className="w-1.5 h-1.5 rounded-full bg-ivory" />
             </div>
-            <div className="p-4 rounded-xl bg-midnight-light/80 border border-rose-dusty/30 w-full">
-              <span className="text-[10px] uppercase tracking-widest text-rose-dusty font-mono">Origin</span>
-              <h3 className="font-serif text-xl text-ivory font-medium mt-0.5">{him.city}, {him.state}</h3>
-              <p className="text-xs text-ivory/80 font-sans mt-1">{him.label}</p>
-              <p className="text-[10px] text-ivory/50 mt-1 font-mono">25.2425° N, 86.9842° E</p>
-              <p className="text-xs text-ivory/70 mt-2 italic font-serif border-t border-white/5 pt-2">
+            <div className="p-3.5 rounded-xl bg-midnight-light/80 border border-rose-dusty/30 w-full">
+              <span className="text-[9px] uppercase tracking-widest text-rose-dusty font-mono">Origin</span>
+              <h3 className="font-serif text-lg text-ivory font-medium mt-0.5">{him.city}, {him.state}</h3>
+              <p className="text-xs text-ivory/80 font-sans mt-0.5">{him.label}</p>
+              <p className="text-[9px] text-ivory/50 mt-1 font-mono">25.2425° N, 86.9842° E</p>
+              <p className="text-xs text-ivory/70 mt-2 italic font-serif border-t border-white/5 pt-1.5 leading-relaxed">
                 “{him.description}”
               </p>
             </div>
           </div>
 
           {/* Distance Indicator Badge */}
-          <div className="relative pl-14 my-1">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-aubergine-dark border border-champagne/30 text-xs font-mono text-champagne">
+          <div className="relative pl-8 my-1">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-aubergine-dark border border-champagne/30 text-[10px] sm:text-xs font-mono text-champagne">
               <Navigation className="w-3 h-3 rotate-45 text-rose-dusty" />
               <span>~{approxDistanceKm} KM Across North India</span>
             </div>
           </div>
 
           {/* Gurgaon Node */}
-          <div className="relative flex items-start gap-5 pl-14">
-            <div className="absolute left-4 top-1.5 -translate-x-1/2 w-5 h-5 rounded-full bg-aubergine border-2 border-champagne flex items-center justify-center shadow-[0_0_12px_rgba(208,181,138,0.8)]">
-              <div className="w-2 h-2 rounded-full bg-champagne-light" />
+          <div className="relative flex items-start gap-3 pl-8">
+            <div className="absolute left-3.5 top-1.5 -translate-x-1/2 w-4 h-4 rounded-full bg-aubergine border-2 border-champagne flex items-center justify-center shadow-[0_0_12px_rgba(208,181,138,0.8)]">
+              <div className="w-1.5 h-1.5 rounded-full bg-champagne-light" />
             </div>
-            <div className="p-4 rounded-xl bg-midnight-light/80 border border-champagne/30 w-full">
-              <span className="text-[10px] uppercase tracking-widest text-champagne font-mono">Destination of Thoughts</span>
-              <h3 className="font-serif text-xl text-ivory font-medium mt-0.5">{her.city}, {her.state}</h3>
-              <p className="text-xs text-ivory/80 font-sans mt-1">{her.label}</p>
-              <p className="text-[10px] text-ivory/50 mt-1 font-mono">28.4595° N, 77.0266° E</p>
-              <p className="text-xs text-ivory/70 mt-2 italic font-serif border-t border-white/5 pt-2">
+            <div className="p-3.5 rounded-xl bg-midnight-light/80 border border-champagne/30 w-full">
+              <span className="text-[9px] uppercase tracking-widest text-champagne font-mono">Destination of Thoughts</span>
+              <h3 className="font-serif text-lg text-ivory font-medium mt-0.5">{her.city}, {her.state}</h3>
+              <p className="text-xs text-ivory/80 font-sans mt-0.5">{her.label}</p>
+              <p className="text-[9px] text-ivory/50 mt-1 font-mono">28.4595° N, 77.0266° E</p>
+              <p className="text-xs text-ivory/70 mt-2 italic font-serif border-t border-white/5 pt-1.5 leading-relaxed">
                 “{her.description}”
               </p>
             </div>
